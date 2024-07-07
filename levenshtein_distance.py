@@ -10,13 +10,7 @@ def load_vocab(file_path):
 
 def levenshtein_distance(token1, token2):
     distances = [[0] * (len(token2) + 1) for _ in range(len(token1) + 1)]
-
-    for t1 in range(len(token1) + 1):
-        distances[t1][0] = t1
-
-    for t2 in range(len(token2) + 1):
-        distances[0][t2] = t2
-
+    distances = proccess_distance(distances=distances, token1=token1, token2=token2)
     a = 0
     b = 0
     c = 0
@@ -39,6 +33,13 @@ def levenshtein_distance(token1, token2):
 
     return distances[len(token1)][len(token2)]
 
+def proccess_distance(distances, token1, token2):
+    for t1 in range(len(token1) + 1):
+        distances[t1][0] = t1
+
+    for t2 in range(len(token2) + 1):
+        distances[0][t2] = t2
+    return distances
 
 def main():
     vocabs = load_vocab(file_path='vocab.txt')
